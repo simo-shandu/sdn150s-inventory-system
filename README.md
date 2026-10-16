@@ -7,4 +7,5 @@
 - **Someleze Mahono** 
 - **Sperance Hlatshwayo**
 - **Ahlume Somlenze** 
-- **Nonkululeko Zuma** 
+- **Nonkululeko Zuma**
+- **Minathi Lusithi**
