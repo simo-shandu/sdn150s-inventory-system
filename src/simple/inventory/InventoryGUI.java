@@ -1,11 +1,33 @@
 
 package simple.inventory;
+import javax.swing.table.DefaultTableModel;
+
+
+
 
 public class InventoryGUI extends javax.swing.JFrame {
-
+    
+      //The Manager
+    private InventoryManager manager = new InventoryManager();
+    
+    //The Table Model 
+    private javax.swing.table.DefaultTableModel tableModel;
     
     public InventoryGUI() {
         initComponents();
+        
+        //Runs the window at the centre
+        setLocationRelativeTo(null);
+        
+        //This creates the 5 columns from scratch
+    tableModel = new javax.swing.table.DefaultTableModel(
+        new Object [][] {},
+        new String [] { "Item Name", "Category", "Quantity", "Price (R)", "Status" }
+    );
+    
+    // This attaches the new model to the empty table
+    tableInventory.setModel(tableModel); 
+        
     }
 
     
@@ -16,11 +38,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnButton = new javax.swing.JButton();
+        btnAddItems = new javax.swing.JButton();
+        btnUpdates = new javax.swing.JButton();
+        btnGenarateReport = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -30,10 +52,10 @@ public class InventoryGUI extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableInventory = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
@@ -81,38 +103,38 @@ public class InventoryGUI extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 153));
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-home-page-24.png"))); // NOI18N
-        jButton1.setText("Dashboard");
+        btnButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-home-page-24.png"))); // NOI18N
+        btnButton.setText("Dashboard");
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-24.png"))); // NOI18N
-        jButton2.setText("Add Items");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAddItems.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnAddItems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-24.png"))); // NOI18N
+        btnAddItems.setText("Add Items");
+        btnAddItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAddItemsActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-edit-pencil-24.png"))); // NOI18N
-        jButton3.setText("Update Items");
+        btnUpdates.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnUpdates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-edit-pencil-24.png"))); // NOI18N
+        btnUpdates.setText("Update Items");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-report-card-24.png"))); // NOI18N
-        jButton4.setText("Generate Report");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnGenarateReport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGenarateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-report-card-24.png"))); // NOI18N
+        btnGenarateReport.setText("Generate Report");
+        btnGenarateReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnGenarateReportActionPerformed(evt);
             }
         });
 
-        jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-log-out-24.png"))); // NOI18N
-        jButton5.setText("Logout");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-log-out-24.png"))); // NOI18N
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnLogoutActionPerformed(evt);
             }
         });
 
@@ -127,11 +149,11 @@ public class InventoryGUI extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnAddItems, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnUpdates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGenarateReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
@@ -145,15 +167,15 @@ public class InventoryGUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jButton1)
+                .addComponent(btnButton)
                 .addGap(41, 41, 41)
-                .addComponent(jButton2)
+                .addComponent(btnAddItems)
                 .addGap(33, 33, 33)
-                .addComponent(jButton3)
+                .addComponent(btnUpdates)
                 .addGap(30, 30, 30)
-                .addComponent(jButton4)
+                .addComponent(btnGenarateReport)
                 .addGap(30, 30, 30)
-                .addComponent(jButton5)
+                .addComponent(btnLogout)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
@@ -178,26 +200,22 @@ public class InventoryGUI extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(0, 0, 204));
         jLabel6.setText("     Inventory Records ");
 
-        jButton6.setBackground(new java.awt.Color(0, 0, 204));
-        jButton6.setForeground(new java.awt.Color(255, 255, 255));
-        jButton6.setText("Search");
+        btnSearch.setBackground(new java.awt.Color(0, 0, 204));
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("Refresh");
+        btnRefresh.setText("Refresh");
 
-        jTable1.setAutoCreateRowSorter(true);
-        jTable1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableInventory.setAutoCreateRowSorter(true);
+        tableInventory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tableInventory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Item Id", "Item Name", "Category", "Quantity", " Price (R)", "Status"
@@ -211,17 +229,17 @@ public class InventoryGUI extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable1.setGridColor(new java.awt.Color(204, 204, 204));
-        jTable1.setRowHeight(35);
-        jTable1.setShowGrid(false);
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setMinWidth(5);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(5);
-            jTable1.getColumnModel().getColumn(0).setMaxWidth(5);
+        tableInventory.setGridColor(new java.awt.Color(204, 204, 204));
+        tableInventory.setRowHeight(35);
+        tableInventory.setShowGrid(false);
+        tableInventory.setShowHorizontalLines(true);
+        tableInventory.setShowVerticalLines(true);
+        tableInventory.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableInventory);
+        if (tableInventory.getColumnModel().getColumnCount() > 0) {
+            tableInventory.getColumnModel().getColumn(0).setMinWidth(5);
+            tableInventory.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tableInventory.getColumnModel().getColumn(0).setMaxWidth(5);
         }
 
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(204, 51, 255), null, null));
@@ -268,9 +286,9 @@ public class InventoryGUI extends javax.swing.JFrame {
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jTextField5)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton6)
+                                .addComponent(btnSearch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton7))
+                                .addComponent(btnRefresh))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -284,9 +302,9 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -502,17 +520,78 @@ public class InventoryGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnGenarateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenarateReportActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnGenarateReportActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAddItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemsActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+         
+    //Create the temporary text fields for the popup
+    javax.swing.JTextField popName = new javax.swing.JTextField();
+    javax.swing.JTextField popCategory = new javax.swing.JTextField();
+    javax.swing.JTextField popQty = new javax.swing.JTextField();
+    javax.swing.JTextField popPrice = new javax.swing.JTextField();
+    
+    
+    //Arrange the fields for the popup
+    Object[] message = {
+        "Item Name:", popName,
+        "Category:", popCategory,
+        "Quantity:", popQty,
+        "Price (R):", popPrice
+    };
+    
+    //Show the popup
+    int option = javax.swing.JOptionPane.showConfirmDialog(this, message, 
+            "Add New Item", javax.swing.JOptionPane.OK_CANCEL_OPTION);
+    
+     //Check if the user clicked "OK"
+    if (option == javax.swing.JOptionPane.OK_OPTION) {
+        
+         try {
+            //Get the text from the fields
+            String name = popName.getText().trim();
+            String category = popCategory.getText().trim();
+            int quantity = Integer.parseInt(popQty.getText().trim());
+            double price = Double.parseDouble(popPrice.getText().trim());
+            
+            //Create the object using the Constructor we built
+            InventoryItem newItem = new InventoryItem(name, category,quantity, price);
+            
+            //Send the item to the Manager
+            manager.addItem(newItem);
+            
+                        
+            //Calculate the Status (Low Stock vs In Stock)
+            String status = (quantity < 10) ? "LOW STOCK" : "In Stock";
+            
+            //Add the row to the JTable visually
+            tableModel.addRow(new Object[]{name, category, quantity, price, status});
+           
+            //Success message
+            javax.swing.JOptionPane.showMessageDialog(this, "Item Added Successfully!");
+           
+                 
+         } catch (NumberFormatException e) {
+             
+            //Error handling if they type letters instead of numbers
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Error: Quantity must be a whole number, and Price must be a valid amount.", 
+                    "Input Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    }//GEN-LAST:event_btnAddItemsActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     /**
      * @param args the command line arguments
@@ -550,13 +629,13 @@ public class InventoryGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnAddItems;
+    private javax.swing.JButton btnButton;
+    private javax.swing.JButton btnGenarateReport;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JButton btnSearch;
+    private javax.swing.JButton btnUpdates;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -580,11 +659,11 @@ public class InventoryGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
+    private javax.swing.JTable tableInventory;
     // End of variables declaration//GEN-END:variables
 }

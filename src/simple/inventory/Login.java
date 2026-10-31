@@ -9,6 +9,9 @@ public class Login extends javax.swing.JFrame {
     
     public Login() {
         initComponents();
+        
+        // Runs the window at the centre
+        setLocationRelativeTo(null);
     }
 
    

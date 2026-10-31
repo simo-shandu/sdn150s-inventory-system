@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package simple.inventory;
 import java.util.ArrayList;
 /**
@@ -27,6 +24,6 @@ public void removeItem(int index){
     }
 }
 //Get the whole list 
-public ArrayList<InventoryItem>getALLItems(){
+public ArrayList<InventoryItem>getAllItems(){
     return items;
 }}
