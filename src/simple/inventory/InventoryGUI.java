@@ -19,16 +19,45 @@ public class InventoryGUI extends javax.swing.JFrame {
         //Runs the window at the centre
         setLocationRelativeTo(null);
         
-        //This creates the 5 columns from scratch
+        //Creates the 5 columns from scratch
     tableModel = new javax.swing.table.DefaultTableModel(
         new Object [][] {},
         new String [] { "Item Name", "Category", "Quantity", "Price (R)", "Status" }
     );
     
-    // This attaches the new model to the empty table
+    //Attaches the new model to the empty table
     tableInventory.setModel(tableModel); 
         
     }
+    
+    private void updateDashboard() {
+    //Get the items from the Manager
+    java.util.ArrayList<InventoryItem> items = manager.getAllItems();
+    
+    //Set up counters
+    int totalItems = items.size();
+    int totalQuantity = 0;
+    int lowStockItems = 0;
+    double totalValue = 0.0;
+    
+        //Loop through and calculate
+    for (InventoryItem item : items) {
+        totalQuantity += item.getQuantity();
+        totalValue += (item.getQuantity() * item.getPrice());
+        
+      //Check for Low Stock (less than 10)
+        if (item.getQuantity() < 10) {
+            lowStockItems++;
+        }
+    }
+    
+     //Update the screen (Use YOUR variable names here!)
+    displayTotalItems.setText(String.valueOf(totalItems));
+    displayTotalQuantity.setText(String.valueOf(totalQuantity));
+    displayLowStockItems.setText(String.valueOf(lowStockItems));
+    displayTotalValue.setText("R " + String.format("%.2f", totalValue));
+       
+}
 
     
     @SuppressWarnings("unchecked")
@@ -64,16 +93,16 @@ public class InventoryGUI extends javax.swing.JFrame {
         textActivity = new javax.swing.JTextArea();
         jPanel6 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
-        totalItems = new javax.swing.JTextField();
+        displayTotalItems = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        totalQuantity = new javax.swing.JTextField();
+        displayTotalQuantity = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        lowStockItems = new javax.swing.JTextField();
+        displayLowStockItems = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        totalValue = new javax.swing.JTextField();
+        displayTotalValue = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 51, 153));
@@ -109,6 +138,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         btnUpdateDashboard.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUpdateDashboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-home-page-24.png"))); // NOI18N
         btnUpdateDashboard.setText("Update Dashboard");
+        btnUpdateDashboard.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateDashboardActionPerformed(evt);
+            }
+        });
 
         btnAddItems.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnAddItems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-add-24.png"))); // NOI18N
@@ -339,23 +373,21 @@ public class InventoryGUI extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-box-24.png"))); // NOI18N
         jLabel7.setText("Total Items");
 
-        totalItems.setBackground(new java.awt.Color(204, 204, 255));
-        totalItems.setForeground(new java.awt.Color(0, 0, 204));
-        totalItems.setBorder(null);
+        displayTotalItems.setBackground(new java.awt.Color(204, 204, 255));
+        displayTotalItems.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        displayTotalItems.setForeground(new java.awt.Color(0, 0, 204));
+        displayTotalItems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        displayTotalItems.setBorder(null);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(jLabel7))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(totalItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
+                .addComponent(jLabel7)
+                .addContainerGap(64, Short.MAX_VALUE))
+            .addComponent(displayTotalItems, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,8 +395,8 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
-                .addComponent(totalItems, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addComponent(displayTotalItems, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel7.setBackground(new java.awt.Color(204, 255, 204));
@@ -374,23 +406,24 @@ public class InventoryGUI extends javax.swing.JFrame {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-cubes-24.png"))); // NOI18N
         jLabel8.setText("Total Quantity");
 
-        totalQuantity.setBackground(new java.awt.Color(204, 255, 204));
-        totalQuantity.setForeground(new java.awt.Color(0, 153, 51));
-        totalQuantity.setBorder(null);
+        displayTotalQuantity.setBackground(new java.awt.Color(204, 255, 204));
+        displayTotalQuantity.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        displayTotalQuantity.setForeground(new java.awt.Color(0, 153, 51));
+        displayTotalQuantity.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        displayTotalQuantity.setBorder(null);
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(totalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jLabel8)
+                        .addGap(0, 21, Short.MAX_VALUE))
+                    .addComponent(displayTotalQuantity, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,8 +431,8 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(totalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(displayTotalQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel8.setBackground(new java.awt.Color(255, 204, 204));
@@ -409,23 +442,24 @@ public class InventoryGUI extends javax.swing.JFrame {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-danger-30.png"))); // NOI18N
         jLabel9.setText("Low Stock Items");
 
-        lowStockItems.setBackground(new java.awt.Color(255, 204, 204));
-        lowStockItems.setForeground(new java.awt.Color(204, 0, 0));
-        lowStockItems.setBorder(null);
+        displayLowStockItems.setBackground(new java.awt.Color(255, 204, 204));
+        displayLowStockItems.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        displayLowStockItems.setForeground(new java.awt.Color(204, 0, 0));
+        displayLowStockItems.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        displayLowStockItems.setBorder(null);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel9))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(36, 36, 36)
-                        .addComponent(lowStockItems, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel9)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(displayLowStockItems, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -433,8 +467,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lowStockItems, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(displayLowStockItems))
         );
 
         jPanel9.setBackground(new java.awt.Color(204, 153, 255));
@@ -444,9 +477,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-coins-32.png"))); // NOI18N
         jLabel10.setText("Total Value (R)");
 
-        totalValue.setBackground(new java.awt.Color(204, 153, 255));
-        totalValue.setForeground(new java.awt.Color(102, 0, 102));
-        totalValue.setBorder(null);
+        displayTotalValue.setBackground(new java.awt.Color(204, 153, 255));
+        displayTotalValue.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        displayTotalValue.setForeground(new java.awt.Color(102, 0, 102));
+        displayTotalValue.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        displayTotalValue.setBorder(null);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -454,13 +489,11 @@ public class InventoryGUI extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(14, 14, 14))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(totalValue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                .addComponent(jLabel10)
+                .addGap(14, 14, 14))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(displayTotalValue, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,8 +501,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(totalValue, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(displayTotalValue))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -486,7 +518,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -583,14 +615,17 @@ public class InventoryGUI extends javax.swing.JFrame {
             manager.addItem(newItem);
             
                         
-            //Calculate the Status (Low Stock vs In Stock)
-            String status = (quantity < 10) ? "LOW STOCK" : "In Stock";
+            //Calculate the Status 
+            String status = (quantity < 10) ? "Low Stock" : "In Stock";
             
             //Add the row to the JTable visually
             tableModel.addRow(new Object[]{name, category, quantity, price, status});
            
             //Success message
             javax.swing.JOptionPane.showMessageDialog(this, "Item Added Successfully!");
+              
+           // Log to Recent Activity
+           textActivity.append("Added: " + name + " (Qty: " + quantity + ")\n");
            
                  
          } catch (NumberFormatException e) {
@@ -612,6 +647,12 @@ public class InventoryGUI extends javax.swing.JFrame {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnUpdateDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDashboardActionPerformed
+        // TODO add your handling code here:
+         updateDashboard();
+       
+    }//GEN-LAST:event_btnUpdateDashboardActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,6 +698,10 @@ public class InventoryGUI extends javax.swing.JFrame {
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnUpdateDashboard;
     private javax.swing.JButton btnUpdates;
+    private javax.swing.JTextField displayLowStockItems;
+    private javax.swing.JTextField displayTotalItems;
+    private javax.swing.JTextField displayTotalQuantity;
+    private javax.swing.JTextField displayTotalValue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -682,11 +727,7 @@ public class InventoryGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField lowStockItems;
     private javax.swing.JTable tableInventory;
     private javax.swing.JTextArea textActivity;
-    private javax.swing.JTextField totalItems;
-    private javax.swing.JTextField totalQuantity;
-    private javax.swing.JTextField totalValue;
     // End of variables declaration//GEN-END:variables
 }
