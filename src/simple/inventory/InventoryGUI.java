@@ -156,6 +156,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         btnUpdates.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnUpdates.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-edit-pencil-24.png"))); // NOI18N
         btnUpdates.setText("Update Items");
+        btnUpdates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdatesActionPerformed(evt);
+            }
+        });
 
         btnGenarateReport.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGenarateReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-report-card-24.png"))); // NOI18N
@@ -653,6 +658,61 @@ public class InventoryGUI extends javax.swing.JFrame {
          updateDashboard();
        
     }//GEN-LAST:event_btnUpdateDashboardActionPerformed
+
+    private void btnUpdatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatesActionPerformed
+        // TODO add your handling code here:
+        // Check if the user selected a row
+    int selectedRow = tableInventory.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please click on an item in the table to update.");
+        return;
+    }
+    
+    // Get the current item from the Manager
+    InventoryItem currentItem = manager.getAllItems().get(selectedRow);
+    
+    // Create popup fields pre-filled with the current data
+    javax.swing.JTextField popQty = new javax.swing.JTextField(String.valueOf(currentItem.getQuantity()));
+    javax.swing.JTextField popPrice = new javax.swing.JTextField(String.valueOf(currentItem.getPrice()));
+    
+    Object[] message = {
+        "Updating Item: " + currentItem.getName(),
+        "New Quantity:", popQty,
+        "New Price (R):", popPrice
+    };
+    
+    // Show the popup
+    int option = javax.swing.JOptionPane.showConfirmDialog(this, message, "Update Item", javax.swing.JOptionPane.OK_CANCEL_OPTION);
+            
+    // If the user clicks OK
+    if (option == javax.swing.JOptionPane.OK_OPTION) {
+        try {
+            //  Get the new numbers
+            int newQty = Integer.parseInt(popQty.getText().trim());
+            double newPrice = Double.parseDouble(popPrice.getText().trim());
+            
+            // Update the Backend (Manager)
+            currentItem.setQuantity(newQty);
+            currentItem.setPrice(newPrice);
+            
+            // Recalculate Status
+            String newStatus = (newQty < 10) ? "Low Stock" : "In Stock";
+            
+            // Update the Visual Table 
+            //  0=Name, 1=Category, 2=Qty, 3=Price, 4=Status
+            tableModel.setValueAt(newQty, selectedRow, 2); 
+            tableModel.setValueAt(newPrice, selectedRow, 3);
+            tableModel.setValueAt(newStatus, selectedRow, 4);
+        
+            javax.swing.JOptionPane.showMessageDialog(this, "Item Updated Successfully!");
+            
+        } catch (NumberFormatException e) {
+            // Error handling if they type letters instead of numbers
+            javax.swing.JOptionPane.showMessageDialog(this, "Error: Quantity and Price must be valid numbers.");
+        }
+    }
+    }//GEN-LAST:event_btnUpdatesActionPerformed
 
     /**
      * @param args the command line arguments
