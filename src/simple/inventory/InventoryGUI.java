@@ -584,6 +584,52 @@ public class InventoryGUI extends javax.swing.JFrame {
 
     private void btnGenarateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenarateReportActionPerformed
         // TODO add your handling code here:
+       //Get all items from the Manager
+    java.util.ArrayList<InventoryItem> items = manager.getAllItems();
+    
+    if (items.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "The inventory is empty. There is nothing to report.");
+        return;
+    }
+    
+    //Set up variables for calculations
+    int totalUniqueItems = items.size();
+    int totalQuantity = 0;
+    double totalValue = 0.0;
+    int lowStockCount = 0;
+    String lowStockList = ""; // To list the names of low stock items
+    
+    //Loop through the items and calculate
+    for (InventoryItem item : items) {
+        totalQuantity += item.getQuantity();
+        totalValue += (item.getQuantity() * item.getPrice());
+        
+        //Check for low stock
+        if (item.getQuantity() < 10) {
+            lowStockCount++;
+            lowStockList += "- " + item.getName() + " (Qty: " + item.getQuantity() + ")\n";
+        }
+    }
+    
+    //Build the report text
+    String report = "====================================\n"
+                  + "       DEV CORE INVENTORY REPORT    \n"
+                  + "====================================\n\n"
+                  + "Total Unique Items: " + totalUniqueItems + "\n"
+                  + "Total Stock Quantity: " + totalQuantity + "\n"
+                  + "Total Inventory Value: R " + String.format("%.2f", totalValue) + "\n\n"
+                  + "------------------------------------\n"
+                  + "WARNING: Low Stock Items (" + lowStockCount + ")\n"
+                  + "------------------------------------\n";
+                  
+    if (lowStockCount == 0) {
+        report += "All items are sufficiently stocked.\n";
+    } else {
+        report += lowStockList;
+    }
+    
+    //Show the report in a popup
+    javax.swing.JOptionPane.showMessageDialog(this, report, "General Report", javax.swing.JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_btnGenarateReportActionPerformed
 
     private void btnAddItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemsActionPerformed
