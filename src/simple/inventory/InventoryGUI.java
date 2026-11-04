@@ -190,6 +190,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         btnRemoveItems.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRemoveItems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-24.png"))); // NOI18N
         btnRemoveItems.setText("Remove Items");
+        btnRemoveItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveItemsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -587,6 +592,52 @@ public class InventoryGUI extends javax.swing.JFrame {
 
     private void btnGenarateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenarateReportActionPerformed
         // TODO add your handling code here:
+       //Get all items from the Manager
+    java.util.ArrayList<InventoryItem> items = manager.getAllItems();
+    
+    if (items.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "The inventory is empty. There is nothing to report.");
+        return;
+    }
+    
+    //Set up variables for calculations
+    int totalUniqueItems = items.size();
+    int totalQuantity = 0;
+    double totalValue = 0.0;
+    int lowStockCount = 0;
+    String lowStockList = ""; // To list the names of low stock items
+    
+    //Loop through the items and calculate
+    for (InventoryItem item : items) {
+        totalQuantity += item.getQuantity();
+        totalValue += (item.getQuantity() * item.getPrice());
+        
+        //Check for low stock
+        if (item.getQuantity() < 10) {
+            lowStockCount++;
+            lowStockList += "- " + item.getName() + " (Qty: " + item.getQuantity() + ")\n";
+        }
+    }
+    
+    //Build the report text
+    String report = "====================================\n"
+                  + "       DEV CORE INVENTORY REPORT    \n"
+                  + "====================================\n\n"
+                  + "Total Unique Items: " + totalUniqueItems + "\n"
+                  + "Total Stock Quantity: " + totalQuantity + "\n"
+                  + "Total Inventory Value: R " + String.format("%.2f", totalValue) + "\n\n"
+                  + "------------------------------------\n"
+                  + "WARNING: Low Stock Items (" + lowStockCount + ")\n"
+                  + "------------------------------------\n";
+                  
+    if (lowStockCount == 0) {
+        report += "All items are sufficiently stocked.\n";
+    } else {
+        report += lowStockList;
+    }
+    
+    //Show the report in a popup
+    javax.swing.JOptionPane.showMessageDialog(this, report, "General Report", javax.swing.JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_btnGenarateReportActionPerformed
 
     private void btnAddItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemsActionPerformed
@@ -768,6 +819,36 @@ public class InventoryGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
    
     }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnRemoveItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemsActionPerformed
+        // TODO add your handling code here:
+        //Check if the user selected a row
+    int selectedRow = tableInventory.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please click on an item in the table to remove.");
+        return;
+    }
+    String itemName = tableModel.getValueAt(selectedRow, 0).toString();
+    // Ask for confirmation
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to delete " + itemName + "?", 
+            "Confirm Delete", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
+            
+    //If they click YES
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+        
+        // Remove from the Backend (Manager)
+        manager.removeItem(selectedRow);
+        
+        // Remove from the Frontend (Table)
+        tableModel.removeRow(selectedRow);
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Item Removed Successfully!");
+    }
+    }//GEN-LAST:event_btnRemoveItemsActionPerformed
+
 
     /**
      * @param args the command line arguments

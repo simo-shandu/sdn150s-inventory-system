@@ -26,4 +26,15 @@ public void removeItem(int index){
 //Get the whole list 
 public ArrayList<InventoryItem>getAllItems(){
     return items;
-}}
+}
+
+public void updateItem(String oldName, InventoryItem updated) {
+    for (int i = 0; i < items.size(); i++) {
+        if (items.get(i).getName().equalsIgnoreCase(oldName)) {
+            items.set(i, updated);
+            return;
+        }
+    
+    }
+}
+}
