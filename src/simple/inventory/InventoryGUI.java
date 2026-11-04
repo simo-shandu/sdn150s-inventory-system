@@ -647,6 +647,18 @@ public class InventoryGUI extends javax.swing.JFrame {
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
+        //Ask the user if they are sure they want to leave
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to logout?", 
+            "Confirm Logout", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
+            
+    // If they click YES
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+      
+        new Login().setVisible(true);
+        dispose(); 
+    }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
