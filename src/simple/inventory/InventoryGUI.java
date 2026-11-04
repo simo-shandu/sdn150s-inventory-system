@@ -187,6 +187,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         btnRemoveItems.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnRemoveItems.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-delete-24.png"))); // NOI18N
         btnRemoveItems.setText("Remove Items");
+        btnRemoveItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoveItemsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -725,6 +730,35 @@ public class InventoryGUI extends javax.swing.JFrame {
         }
     }
     }//GEN-LAST:event_btnUpdatesActionPerformed
+
+    private void btnRemoveItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemsActionPerformed
+        // TODO add your handling code here:
+        //Check if the user selected a row
+    int selectedRow = tableInventory.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Please click on an item in the table to remove.");
+        return;
+    }
+    String itemName = tableModel.getValueAt(selectedRow, 0).toString();
+    // Ask for confirmation
+    int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to delete " + itemName + "?", 
+            "Confirm Delete", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
+            
+    //If they click YES
+    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+        
+        // Remove from the Backend (Manager)
+        manager.removeItem(selectedRow);
+        
+        // Remove from the Frontend (Table)
+        tableModel.removeRow(selectedRow);
+        
+        javax.swing.JOptionPane.showMessageDialog(this, "Item Removed Successfully!");
+    }
+    }//GEN-LAST:event_btnRemoveItemsActionPerformed
 
     /**
      * @param args the command line arguments
