@@ -1,6 +1,9 @@
 
 package simple.inventory;
+
+
 import javax.swing.table.DefaultTableModel;
+
 
 
 
@@ -259,6 +262,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         });
 
         btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
 
         tableInventory.setAutoCreateRowSorter(true);
         tableInventory.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -545,7 +553,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                         .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -663,6 +671,36 @@ public class InventoryGUI extends javax.swing.JFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
+ 
+    // Get what the user typed
+    String keyword = btnSearch.getText().trim();
+
+    // Set up the table filter
+    javax.swing.table.DefaultTableModel model =
+            (javax.swing.table.DefaultTableModel) tableInventory.getModel();
+    javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> sorter =
+            new javax.swing.table.TableRowSorter<>(model);
+    tableInventory.setRowSorter(sorter);
+
+    // If the search box is empty, show all items
+    if (keyword.isEmpty()) {
+        sorter.setRowFilter(null);
+        return;
+    }
+
+    // Filter all columns, ignoring upper/lower case
+    sorter.setRowFilter(javax.swing.RowFilter.regexFilter(
+            "(?i)" + java.util.regex.Pattern.quote(keyword)));
+
+    // If nothing matches, tell the user
+    if (tableInventory.getRowCount() == 0) {
+        javax.swing.JOptionPane.showMessageDialog(this, "No matching items found.","Search",
+                
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    
+        
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnUpdateDashboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDashboardActionPerformed
@@ -725,6 +763,11 @@ public class InventoryGUI extends javax.swing.JFrame {
         }
     }
     }//GEN-LAST:event_btnUpdatesActionPerformed
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+   
+    }//GEN-LAST:event_btnRefreshActionPerformed
 
     /**
      * @param args the command line arguments
