@@ -817,7 +817,16 @@ public class InventoryGUI extends javax.swing.JFrame {
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
-   
+   // Clear the search box
+    jTextField5.setText("");
+
+    // Remove the filter so all items show again
+    tableInventory.setRowSorter(null);
+
+    // Put the cursor back in the search box
+    jTextField5.requestFocus();
+    this.revalidate();
+    this.repaint();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
     private void btnRemoveItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveItemsActionPerformed
