@@ -12,14 +12,17 @@ public class InventoryItem {
     private String category;
     private int quantity;
     private double price;
+    private String location;
+    
     
     //Constructor 
-    public InventoryItem(String name, String category, int quantity, double price){
+    public InventoryItem(String name, String category, int quantity, double price, String location){
         
         this.name = name;
         this.category = category;
         this.quantity = quantity;
         this.price = price;
+        this.location = location;
     }
     //Getters methods
     public String getName(){
@@ -37,7 +40,9 @@ public class InventoryItem {
     public double getPrice(){
         return price;
     }
-    
+    public String getLocation(){
+        return location;
+    }
     //Setters methods 
     
     public void setQuantity(int quantity){

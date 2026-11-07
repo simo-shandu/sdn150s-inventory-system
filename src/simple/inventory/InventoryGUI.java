@@ -22,10 +22,10 @@ public class InventoryGUI extends javax.swing.JFrame {
         //Runs the window at the centre
         setLocationRelativeTo(null);
         
-        //Creates the 5 columns from scratch
+        //Creates the 6 columns from scratch
     tableModel = new javax.swing.table.DefaultTableModel(
         new Object [][] {},
-        new String [] { "Item Name", "Category", "Quantity", "Price (R)", "Status" }
+        new String [] { "Item Name", "Category", "Quantity", "Price (R)","Location", "Status" }
     );
     
     //Attaches the new model to the empty table
@@ -280,11 +280,11 @@ public class InventoryGUI extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item Id", "Item Name", "Category", "Quantity", " Price (R)", "Status"
+                "Item Id", "Item Name", "Category", "Quantity", " Price (R)", "Location", "Status"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -323,10 +323,10 @@ public class InventoryGUI extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3))
         );
@@ -354,16 +354,16 @@ public class InventoryGUI extends javax.swing.JFrame {
                         .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(textSearch)
-                                .addGap(18, 18, 18)
+                                .addComponent(textSearch, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                                .addGap(49, 49, 49)
                                 .addComponent(btnSearch)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGap(45, 45, 45)
                                 .addComponent(btnRefresh))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,13 +373,14 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(textSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnRefresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -404,7 +405,7 @@ public class InventoryGUI extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(jLabel7)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(49, Short.MAX_VALUE))
             .addComponent(displayTotalItems, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel6Layout.setVerticalGroup(
@@ -436,12 +437,9 @@ public class InventoryGUI extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(0, 21, Short.MAX_VALUE))
-                    .addComponent(displayTotalQuantity, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap())
+                .addComponent(jLabel8)
+                .addContainerGap(36, Short.MAX_VALUE))
+            .addComponent(displayTotalQuantity)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -449,7 +447,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel8)
                 .addGap(18, 18, 18)
-                .addComponent(displayTotalQuantity, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+                .addComponent(displayTotalQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -536,13 +534,13 @@ public class InventoryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(34, 34, 34)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18))
+                        .addContainerGap())
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
@@ -556,7 +554,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -650,6 +648,7 @@ public class InventoryGUI extends javax.swing.JFrame {
     javax.swing.JTextField popCategory = new javax.swing.JTextField();
     javax.swing.JTextField popQty = new javax.swing.JTextField();
     javax.swing.JTextField popPrice = new javax.swing.JTextField();
+    javax.swing.JTextField popLocation = new javax.swing.JTextField();
     
     
     //Arrange the fields for the popup
@@ -657,7 +656,8 @@ public class InventoryGUI extends javax.swing.JFrame {
         "Item Name:", popName,
         "Category:", popCategory,
         "Quantity:", popQty,
-        "Price (R):", popPrice
+        "Price (R):", popPrice,
+        "Location:",popLocation
     };
     
     //Show the popup
@@ -673,9 +673,9 @@ public class InventoryGUI extends javax.swing.JFrame {
             String category = popCategory.getText().trim();
             int quantity = Integer.parseInt(popQty.getText().trim());
             double price = Double.parseDouble(popPrice.getText().trim());
-            
+            String location = popLocation.getText().trim();
             //Create the object using the Constructor we built
-            InventoryItem newItem = new InventoryItem(name, category,quantity, price);
+            InventoryItem newItem = new InventoryItem(name, category,quantity, price,location);
             
             //Send the item to the Manager
             manager.addItem(newItem);
@@ -685,7 +685,7 @@ public class InventoryGUI extends javax.swing.JFrame {
             String status = (quantity < 10) ? "Low Stock" : "In Stock";
             
             //Add the row to the JTable visually
-            tableModel.addRow(new Object[]{name, category, quantity, price, status});
+            tableModel.addRow(new Object[]{name, category, quantity, price,location, status});
            
             //Success message
             javax.swing.JOptionPane.showMessageDialog(this, "Item Added Successfully!");
@@ -806,7 +806,7 @@ public class InventoryGUI extends javax.swing.JFrame {
             //  0=Name, 1=Category, 2=Qty, 3=Price, 4=Status
             tableModel.setValueAt(newQty, selectedRow, 2); 
             tableModel.setValueAt(newPrice, selectedRow, 3);
-            tableModel.setValueAt(newStatus, selectedRow, 4);
+            tableModel.setValueAt(newStatus, selectedRow, 5);
             
            // Log to Recent Activity
             textActivity.append("Updated: " + currentItem.getName() + " to Qty " + newQty + "\n");
