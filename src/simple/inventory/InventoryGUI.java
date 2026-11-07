@@ -724,7 +724,7 @@ public class InventoryGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
  
     // Get what the user typed
-    String keyword = btnSearch.getText().trim();
+    String keyword = jTextField5.getText().trim();
 
     // Set up the table filter
     javax.swing.table.DefaultTableModel model =
