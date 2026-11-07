@@ -371,7 +371,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jTextField5" max="32767" attributes="0"/>
+                                      <Component id="textSearch" max="32767" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -396,7 +396,7 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="btnRefresh" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
-                                  <Component id="jTextField5" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
+                                  <Component id="textSearch" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
                                   <Component id="btnSearch" min="-2" pref="22" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -422,7 +422,7 @@
                 <Property name="text" type="java.lang.String" value="     Inventory Records "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField5">
+            <Component class="javax.swing.JTextField" name="textSearch">
             </Component>
             <Component class="javax.swing.JButton" name="btnSearch">
               <Properties>

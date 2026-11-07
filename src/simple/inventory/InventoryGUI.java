@@ -84,7 +84,7 @@ public class InventoryGUI extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        textSearch = new javax.swing.JTextField();
         btnSearch = new javax.swing.JButton();
         btnRefresh = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -356,7 +356,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jTextField5)
+                                .addComponent(textSearch)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnSearch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -375,7 +375,7 @@ public class InventoryGUI extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnRefresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -637,7 +637,9 @@ public class InventoryGUI extends javax.swing.JFrame {
     }
     
     //Show the report in a popup
-    javax.swing.JOptionPane.showMessageDialog(this, report, "General Report", javax.swing.JOptionPane.INFORMATION_MESSAGE); 
+    javax.swing.JOptionPane.showMessageDialog(this, report, "General Report", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    
+    textActivity.append("Generated System Report.\n");
     }//GEN-LAST:event_btnGenarateReportActionPerformed
 
     private void btnAddItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddItemsActionPerformed
@@ -724,7 +726,7 @@ public class InventoryGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
  
     // Get what the user typed
-    String keyword = jTextField5.getText().trim();
+    String keyword = textSearch.getText().trim();
 
     // Set up the table filter
     javax.swing.table.DefaultTableModel model =
@@ -749,8 +751,8 @@ public class InventoryGUI extends javax.swing.JFrame {
                 
                 javax.swing.JOptionPane.INFORMATION_MESSAGE);
     }
-
-    
+ // Log to Recent Activity
+    textActivity.append("Searched for: " + keyword + "\n");
         
     }//GEN-LAST:event_btnSearchActionPerformed
 
@@ -805,6 +807,9 @@ public class InventoryGUI extends javax.swing.JFrame {
             tableModel.setValueAt(newQty, selectedRow, 2); 
             tableModel.setValueAt(newPrice, selectedRow, 3);
             tableModel.setValueAt(newStatus, selectedRow, 4);
+            
+           // Log to Recent Activity
+            textActivity.append("Updated: " + currentItem.getName() + " to Qty " + newQty + "\n");
         
             javax.swing.JOptionPane.showMessageDialog(this, "Item Updated Successfully!");
             
@@ -818,13 +823,13 @@ public class InventoryGUI extends javax.swing.JFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
    // Clear the search box
-    jTextField5.setText("");
+    textSearch.setText("");
 
     // Remove the filter so all items show again
     tableInventory.setRowSorter(null);
 
     // Put the cursor back in the search box
-    jTextField5.requestFocus();
+    textSearch.requestFocus();
     this.revalidate();
     this.repaint();
     }//GEN-LAST:event_btnRefreshActionPerformed
@@ -853,6 +858,8 @@ public class InventoryGUI extends javax.swing.JFrame {
         
         // Remove from the Frontend (Table)
         tableModel.removeRow(selectedRow);
+        
+        textActivity.append("Removed an item from inventory.\n");
         
         javax.swing.JOptionPane.showMessageDialog(this, "Item Removed Successfully!");
     }
@@ -931,8 +938,8 @@ public class InventoryGUI extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTable tableInventory;
     private javax.swing.JTextArea textActivity;
+    private javax.swing.JTextField textSearch;
     // End of variables declaration//GEN-END:variables
 }
